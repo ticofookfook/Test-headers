@@ -31,7 +31,7 @@ try:
             headers[key] = payload
             response = requests.get(url, headers=headers)
             receber = size
-            # print(colored(f'{key}: {headers[key]} | StatusCode={response.status_code} | Tamanho da resposta={size}', 'green'))
+           
             print (colored(f'{key}: {headers[key]}', 'green'))
             print (colored(f'StatusCode= {response.status_code}', 'green') )
             print (colored(f'Tamanho da resposta= {size}', 'green'))
