@@ -1,7 +1,7 @@
 import requests
 from termcolor import colored
 import argparse
-
+import time
 
 
 parser = argparse.ArgumentParser(description='Modo de uso: ''-u https://google.com -w wordlist.txt')
@@ -29,14 +29,17 @@ try:
             size += len(chunk)
         for key in headers.keys():
             headers[key] = payload
+            start = time.perf_counter()
             response = requests.get(url, headers=headers)
-            receber = size
-           
+            end = time.perf_counter()
+            tempo_total = end - start  
+            response_time = round(tempo_total, 2)         
             print (colored(f'{key}: {headers[key]}', 'green'))
             print (colored(f'StatusCode= {response.status_code}', 'green') )
             print (colored(f'Tamanho da resposta= {size}', 'green'))
+            print (colored(f'Tempo total da resposta= {response_time}', 'green'))
             print (colored('===============================================','red'))
-    
+
     
     while True:
         pass
